@@ -1,0 +1,1 @@
+- Berkay : Introduction , current Software Arch. , Proposed Soft. Arch. , 3.6.	Global Software Control
