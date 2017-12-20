@@ -1,0 +1,24 @@
+function electionWinner(votes) {
+    const votesForCandidate = {};
+    for(let v of votes){
+        votesForCandidate[v] = (votesForCandidate[v] || 0) + 1;
+    }
+
+    let winners = [];
+    let maxVotes = 0;
+
+    for(let name in votesForCandidate){
+        if(voteForCandidate[name] > maxVotes){
+            maxVotes = votesForCandidate[name];
+            winners = [name];
+        }
+        else if (votesForCandidate[name] === maxVotes){
+            winners.push(name);
+        }
+    }
+
+    if(winners.length === 1){
+    return winners[0];
+}
+winners.sort();
+return winners[winners.length - 1];
