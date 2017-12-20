@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body ng-app="">
+
+<form>
+  Pick a candidate:
+  <input type="radio" ng-model="myVar" value="Bottle John">Bottle John
+  <input type="radio" ng-model="myVar" value="Asan lkio">Asan lkio
+  <input type="radio" ng-model="myVar" value="Bilal Kofr">Bilal Kofr
+  <input type="radio" ng-model="myVar" value="Mary Light">Mary Light
+
+</form>
+
+<div ng-switch="myVar">
+  <div ng-switch-when="Bottle John">
+     <h1>Bottle John</h1>
+     <p>dfjdhhgehi.</p>
+  </div>
+  <div ng-switch-when="Asan lkio">
+     <h1>Asan lkio</h1>
+     <p>ickcnjncjdhi.</p>
+  </div>
+  <div ng-switch-when="Bilal Kofr">
+     <h1>Bilal Kofr</h1>
+     <p>iwhjshdh</p>
+  </div>
+  <div ng-switch-when="Mary Light">
+     <h1>Mary Light</h1>
+     <p>iwhjshdh</p>
+  </div>
+</div>
+
+<button onclick="submitButton()">Submit</button>
+
+<script>
+
+function submitButton() {
+     alert("You have successfully voted!");
+     }
+</script>
+
+</body>
+</html>
