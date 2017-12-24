@@ -1,0 +1,13 @@
+function setVote(voteName)
+{
+  document.getElementById("votefor").value = voteName;
+}
+
+function confirmSubmit()
+{
+  if (document.getElementById("votefor").value == "")
+  {
+    var agree=confirm("Please select an entry before voting.");
+    return false;
+  }
+}
