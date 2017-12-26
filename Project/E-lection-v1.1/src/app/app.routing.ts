@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard]  },
-    { path: 'table', component: TableComponent  },
+    { path: 'table', component: TableComponent,canActivate: [AuthGuard]  },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
