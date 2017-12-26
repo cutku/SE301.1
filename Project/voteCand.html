@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<h3>Choose The Election You Would Like To Partake In<h3/>
+<form id = "voteCand" action = "recordvoteindatabase">
+<select id="mySelect">
+  <option>President</option>
+  <option>Assistant President</option>
+  <option>Chairman</option>
+  <option>Student Council leader</option>
+</select>
+
+<h4>Please choose a candidate to vote for:</h4>
+
+</head>
+<body>
+
+<form id = "voteCand" action = "recordindatabase">
+<select id="mySelect">
+  <option>John</option>
+  <option>James</option>
+  <option>Blake</option>
+  <option>Isiah</option>
+</select>
+
+<br/>
+
+<input type="button" onclick= "castVote()" value="Submit Vote">
+<br><br>
+
+</form>
+
+<script>
+function castVote(voteName)
+{
+  document.getElementById("voteCand").value = voteName;
+}
+
+function confirmSubmit()
+{
+  if (document.getElementById("voteCand").value == "")
+  {
+    var agree=confirm("Please choose a candidate before voting!");
+    return false;
+  }
+}
+</script>
+
+</body>
+</html>
+

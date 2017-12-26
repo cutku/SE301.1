@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Create an Election</h2>
+
+<form id="crtElct" action="newelectionshouldstart.php">
+
+	<label for="title" class="required">Title of Election </label> <br></br>
+    <input type="text" placeholder = "type name for the election"/>
+        <br></br>
+
+	Name of Candidate: <input type = "text" />
+    Candidate ID: <input type = "integer" />
+    <button type="submit"> Add Candidate </button>
+    <br></br>
+    
+    <input type = "submit" value = "Submit New Election" />
+</form>
+
+<script>
+function submitElection() {
+    document.getElementById("crtElct").submit();
+}
+</script>
+
+</body>
+</html>
+
