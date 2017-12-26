@@ -9,7 +9,7 @@ export class Charts implements OnInit {
 
   
   constructor() {
-    
+   
   }
 
   ngOnInit() {

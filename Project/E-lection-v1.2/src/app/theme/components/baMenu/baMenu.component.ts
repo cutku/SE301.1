@@ -3,7 +3,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { BaMenuService } from '../../services';
-import { GlobalState } from '../../../global.state';
+import {GlobalState} from '../../../global.state';
+
 
 @Component({
   selector: 'ba-menu',

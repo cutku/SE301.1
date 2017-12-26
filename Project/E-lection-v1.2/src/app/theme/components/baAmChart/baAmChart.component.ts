@@ -19,6 +19,14 @@ import {BaAmChartThemeService} from './baAmChartTheme.service';
   providers: [BaAmChartThemeService],
 })
 export class BaAmChart {
+  static ready(arg0: any): any {
+    throw new Error("Method not implemented.");
+  }
+  static isReady: any;
+  static makeChart(arg0: any, arg1: any): any {
+    throw new Error("Method not implemented.");
+  }
+  static themes: any;
 
   @Input() baAmChartConfiguration:Object;
   @Input() baAmChartClass:string;
@@ -31,11 +39,11 @@ export class BaAmChart {
   }
 
   ngOnInit() {
-    AmCharts.themes.blur = this._baAmChartThemeService.getTheme();
+    BaAmChart.themes.blur = this._baAmChartThemeService.getTheme();
   }
 
   ngAfterViewInit() {
-    let chart = AmCharts.makeChart(this._selector.nativeElement, this.baAmChartConfiguration);
+    let chart = BaAmChart.makeChart(this._selector.nativeElement, this.baAmChartConfiguration);
     this.onChartReady.emit(chart);
   }
 
@@ -43,10 +51,10 @@ export class BaAmChart {
     BaThemePreloader.registerLoader(new Promise((resolve, reject) => {
       let amChartsReadyMsg = 'AmCharts ready';
 
-      if (AmCharts.isReady) {
+      if (BaAmChart.isReady) {
         resolve(amChartsReadyMsg);
       } else {
-        AmCharts.ready(function () {
+        BaAmChart.ready(function () {
           resolve(amChartsReadyMsg);
         });
       }

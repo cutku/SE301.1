@@ -39,7 +39,7 @@ import { Charts } from './charts/charts.component';
     ],
     declarations: [
         TableComponent,
-        
+        Charts,
         AppComponent,
         AlertComponent,
         HomeComponent,

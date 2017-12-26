@@ -4,6 +4,8 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { AuthGuard } from './_guards/index';
+
+
 import { UsersComponent } from './users/index';
 import { TableComponent } from './table/table.component';
 
