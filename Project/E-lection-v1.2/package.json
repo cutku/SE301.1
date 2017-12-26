@@ -37,9 +37,11 @@
   "devDependencies": {
     "@angular/cli": "1.4.2",
     "@angular/compiler-cli": "4.4.4",
+    "@angular/language-service": "^5.1.2",
     "@types/bootstrap": "3.3.32",
     "@types/chartist": "0.9.34",
     "@types/jasmine": "2.5.38",
+    "@types/jasminewd2": "~2.0.2",
     "@types/jquery": "1.10.31",
     "@types/node": "6.0.73",
     "codelyzer": "2.0.0",
@@ -54,8 +56,6 @@
     "protractor": "5.1.0",
     "ts-node": "2.0.0",
     "tslint": "4.5.0",
-    "typescript": "2.3.4",
-    "@angular/language-service": "^5.0.0",
-    "@types/jasminewd2": "~2.0.2"
+    "typescript": "2.3.4"
   }
 }

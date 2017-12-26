@@ -6,6 +6,9 @@ import { RegisterComponent } from './register/index';
 import { AuthGuard } from './_guards/index';
 import { UsersComponent } from './users/index';
 import { TableComponent } from './table/table.component';
+
+
+
 import { Charts } from './charts/charts.component';
 
 const appRoutes: Routes = [
