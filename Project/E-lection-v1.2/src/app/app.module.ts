@@ -23,6 +23,7 @@ import { LoginComponent } from './login/index';
 import { UsersComponent } from './users/index';
 import { RegisterComponent } from './register/index';
 import { TableComponent } from './table/table.component';
+import { Charts } from './charts/charts.component';
 
 @NgModule({
     imports: [
