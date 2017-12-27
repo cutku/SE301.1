@@ -12,6 +12,8 @@ import { TableComponent } from './table/table.component';
 
 
 import { Charts } from './charts/charts.component';
+import { ChartistJs } from './charts/components/chartistJs/index';
+
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -20,6 +22,7 @@ const appRoutes: Routes = [
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard]  },
     { path: 'table', component: TableComponent  },
     { path: 'charts', component: Charts  },
+ 
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

@@ -14,6 +14,8 @@ import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
+
+
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { JwtInterceptor } from './_helpers/index';
@@ -24,6 +26,8 @@ import { UsersComponent } from './users/index';
 import { RegisterComponent } from './register/index';
 import { TableComponent } from './table/table.component';
 import { Charts } from './charts/charts.component';
+import { ChartistJs } from './charts/components/chartistJs/index';
+
 
 @NgModule({
     imports: [
@@ -40,12 +44,14 @@ import { Charts } from './charts/charts.component';
     declarations: [
         TableComponent,
         Charts,
+       
         AppComponent,
         AlertComponent,
         HomeComponent,
         LoginComponent,
         UsersComponent,
-        RegisterComponent
+        RegisterComponent,
+        
     ],
     providers: [
         AuthGuard,

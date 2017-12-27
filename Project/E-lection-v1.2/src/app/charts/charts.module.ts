@@ -9,9 +9,11 @@ import { ChartistJs } from './components/chartistJs/chartistJs.component';
 import { ChartistJsService } from './components/chartistJs/chartistJs.service';
 import { AppTranslationModule } from '../app.translation.module';
 
+
 @NgModule({
   imports: [
     CommonModule,
+    
     AppTranslationModule,
     FormsModule,
     NgaModule,
@@ -19,6 +21,7 @@ import { AppTranslationModule } from '../app.translation.module';
   ],
   declarations: [
     Charts,
+    
     ChartistJs
   ],
   providers: [
