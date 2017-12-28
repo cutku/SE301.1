@@ -17,11 +17,11 @@ import { ChartistJs } from './charts/components/chartistJs/index';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-    { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard]  },
-    { path: 'table', component: TableComponent, canActivate: [AuthGuard]  },
-    { path: 'charts', component: Charts, canActivate: [AuthGuard]  },
+    { path: 'table', component: TableComponent  },
+    { path: 'charts', component: Charts  },
  
 
     // otherwise redirect to home
