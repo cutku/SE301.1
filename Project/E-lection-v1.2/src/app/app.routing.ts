@@ -20,8 +20,8 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard]  },
-    { path: 'table', component: TableComponent  },
-    { path: 'charts', component: Charts  },
+    { path: 'table', component: TableComponent , canActivate: [AuthGuard] },
+    { path: 'charts', component: Charts  , canActivate: [AuthGuard]},
  
 
     // otherwise redirect to home
