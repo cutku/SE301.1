@@ -9,6 +9,7 @@ import { TableComponent } from './table/table.component';
 import { Charts } from './charts/charts.component';
 import { ChartistJs } from './charts/components/chartistJs/index';
 import { Testt } from './testt/testt.component';
+import { AdminLoginComponent } from './adminlogin/adminlogin.component';
 
 
 const appRoutes: Routes = [
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'table', component: TableComponent , canActivate: [AuthGuard] },
     { path: 'charts', component: Charts  , canActivate: [AuthGuard]},
     { path: 'testt', component: Testt  , canActivate: [AuthGuard]},
+    { path: 'adminlogin', component: AdminLoginComponent  , canActivate: [AuthGuard]},
  
 
     // otherwise redirect to home
