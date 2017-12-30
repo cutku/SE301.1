@@ -1,91 +1,23 @@
 
 
 
-<form>
-    Pick a candidate:
-    <input type="radio" ng-model="myVar" value="Bottle John">Bottle John
-    <input type="radio" ng-model="myVar" value="Asan lkio">Asan lkio
-    <input type="radio" ng-model="myVar" value="Bilal Kofr">Bilal Kofr
-    <input type="radio" ng-model="myVar" value="Mary Light">Mary Light
-  
-  </form>
-  
-<div ng-switch="myVar">
-        <div ng-switch-when="Bottle John">
-           <h3>Bottle John</h3>
-           <p></p>
-        </div>
-        <div ng-switch-when="Asan lkio">
-           <h3>Asan lkio</h3>
-           <p></p>
-        </div>
-        <div ng-switch-when="Bilal Kofr">
-           <h3>Bilal Kofr</h3>
-           <p></p>
-        </div>
-        <div ng-switch-when="Mary Light">
-           <h3>Mary Light</h3>
-           <p></p>
-        </div>
-      </div>
-  <button onclick="submitButton()">Submit</button>
+<body ng-controller="MainCtrl">
+    <i title="Up Votes" ng-click="changeVote(vote, 'up')" class="fa fa-arrow-circle-up fa-2x" ng-class="{true:'up', false:''}[vote=='up']"></i>
+    <br>
+    <i title="Down Votes" ng-click="changeVote(vote, 'down')" class="fa fa-arrow-circle-down fa-2x"  ng-class="{true:'down', false:''}[vote=='down']"></i>
+    <br>Vote: {{vote}}
 
-  <script>
-  
-  function submitButton() {
-       alert("You have successfully voted!");
-       }
-  </script>
+<div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="header">
+    <h3 FONT="TIMES ROMAN" FONT-COLOR="BLUE"> SELECT an Candidate:</h3>
 
-                    <h4 class="title">Candidates</h4>
-                    <p class="category">who passed the election threshold </p>
-                </div>
-                <div class="content table-responsive table-full-width">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let row of tableData1.dataRows">
-                                <td *ngFor="let cell of row">{{cell}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <select>
 
-                </div>
-            </div>
-        </div>
+        <option value=""></option>
+        <option value="cendidate-1">cendidate-1</option>
+        <option value="cendidate-2">cendidate-2</option>
+    </select>
+    <br>
 
-
-        <div class="col-md-12">
-            <div class="card card-plain">
-                <div class="header">
-                    <h4 class="title">Candidates</h4>
-                    <p class="category"> who didn't pass the election threshold </p>
-                </div>
-                <div class="content table-responsive table-full-width">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th *ngFor="let cell of tableData2.headerRow">{{ cell }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let row of tableData2.dataRows">
-                                <td *ngFor="let cell of row">{{cell}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <input class="SubmitButton" type="submit" name="SUBMITBUTTON" value="Submit" style="font-size:20px; " />
 </div>
