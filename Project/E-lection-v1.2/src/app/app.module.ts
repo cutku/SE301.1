@@ -24,6 +24,7 @@ import { Charts } from './charts/charts.component';
 import { ChartistJs } from './charts/components/chartistJs/index';
 import { Testt} from './testt/testt.component';
 import{ AdminLoginComponent} from './adminlogin/adminlogin.component';
+import { AdminPanelComponent } from './adminpanel/adminpanel.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import{ AdminLoginComponent} from './adminlogin/adminlogin.component';
         LoginComponent,
         UsersComponent,
         RegisterComponent,
-        AdminLoginComponent
+        AdminLoginComponent,
+        AdminPanelComponent,
         
     ],
     providers: [
