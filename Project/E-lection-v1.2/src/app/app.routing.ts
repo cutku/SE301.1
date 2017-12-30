@@ -4,15 +4,11 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { AuthGuard } from './_guards/index';
-
-
 import { UsersComponent } from './users/index';
 import { TableComponent } from './table/table.component';
-
-
-
 import { Charts } from './charts/charts.component';
 import { ChartistJs } from './charts/components/chartistJs/index';
+import { Testt } from './testt/testt.component';
 
 
 const appRoutes: Routes = [
@@ -22,6 +18,7 @@ const appRoutes: Routes = [
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard]  },
     { path: 'table', component: TableComponent , canActivate: [AuthGuard] },
     { path: 'charts', component: Charts  , canActivate: [AuthGuard]},
+    { path: 'testt', component: Testt  , canActivate: [AuthGuard]},
  
 
     // otherwise redirect to home

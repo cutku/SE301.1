@@ -5,17 +5,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers/index';
-
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
-
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
-
-
-
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { JwtInterceptor } from './_helpers/index';
@@ -27,6 +22,7 @@ import { RegisterComponent } from './register/index';
 import { TableComponent } from './table/table.component';
 import { Charts } from './charts/charts.component';
 import { ChartistJs } from './charts/components/chartistJs/index';
+import { Testt} from './testt/testt.component';
 
 
 @NgModule({
@@ -44,7 +40,7 @@ import { ChartistJs } from './charts/components/chartistJs/index';
     declarations: [
         TableComponent,
         Charts,
-       
+        Testt,
         AppComponent,
         AlertComponent,
         HomeComponent,
