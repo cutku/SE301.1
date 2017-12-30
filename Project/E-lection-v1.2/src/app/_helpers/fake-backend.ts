@@ -8,6 +8,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 
+
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 
@@ -16,6 +17,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // array in local storage for registered users
         let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+        let admins: any[] = JSON.parse(localStorage.getItem('admin')) || [];
 
         // wrap in delayed observable to simulate server api call
         return Observable.of(null).mergeMap(() => {
@@ -25,6 +27,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
+                });
+                let filteredadmin = admins.filter(admins => {
+                    return admins.username === request.body.username && admins.password === request.body.password;
                 });
 
                 if (filteredUsers.length) {
@@ -39,7 +44,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     };
 
                     return Observable.of(new HttpResponse({ status: 200, body: body }));
-                } else {
+                }
+                else if (filteredadmin.length) {
+                    // if login details are valid return 200 OK with user details and fake jwt token
+                    let admin = filteredadmin[0];
+                    let body = {
+                        id: admin.id,
+                        username: admin.username,
+                        firstName: admin.firstName,
+                        lastName: admin.lastName,
+                        token: 'fake-jwt-token'
+                    };
+
+                    return Observable.of(new HttpResponse({ status: 200, body: body }));
+                } 
+                else {
                     // else return 400 bad request
                     return Observable.throw('Username or password is incorrect');
                 }
@@ -87,6 +106,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 // save new user
                 newUser.id = users.length + 1;
                 users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                // respond 200 OK
+                return Observable.of(new HttpResponse({ status: 200 }));
+
+                
+            }
+            if (request.url.endsWith('/api/admin') && request.method === 'POST') {
+                // get new user object from post body
+                let newAdmin = request.body;
+
+                // validation
+                let duplicateUser = admins.filter(admin => { return admin.username === newAdmin.username; }).length;
+                if (duplicateUser) {
+                    return Observable.throw('Username "' + newAdmin.username + '" is already taken');
+                }
+
+                // save new user
+                newAdmin.id = users.length + 1;
+                users.push(newAdmin);
                 localStorage.setItem('users', JSON.stringify(users));
 
                 // respond 200 OK

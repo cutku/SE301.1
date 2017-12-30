@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
+
 @Injectable()
 export class AuthenticationService {
     constructor(private http: HttpClient) { }
@@ -17,6 +18,18 @@ export class AuthenticationService {
                 }
 
                 return user;
+            });
+    }
+    loginadmin(adminusername: string, adminpassword: string ) {
+        return this.http.post<any>('/api/authenticate', { username: adminusername, password: adminpassword, })
+            .map(admin => {
+                // login successful if there's a jwt token in the response
+                if (admin && admin.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(admin));
+                }
+
+                return admin;
             });
     }
 
