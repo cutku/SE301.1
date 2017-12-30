@@ -13,18 +13,12 @@
         </div>
       
           <label><b>Password</b></label>
-<<<<<<< HEAD
         
 
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
            
             <input type="password" class="form-control" name="password" [(ngModel)]="admin.password" #password="ngModel" required />
             <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-=======
-          <input type="password" placeholder="Enter Password" ng-model="psw" required>
-          
-              <button type="submit">Login</button>
->>>>>>> b78a424b12b73da233a88ea3fe0e743a265c28bb
         </div>
           <button [disabled]="loading" type="submit"class="btn btn-primary">Login</button>
         </div>
