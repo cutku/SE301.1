@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     { path: 'table', component: TableComponent , canActivate: [AuthGuard] },
     { path: 'charts', component: Charts  , canActivate: [AuthGuard]},
     { path: 'testt', component: Testt  , canActivate: [AuthGuard]},
-    { path: 'adminlogin', component: AdminLoginComponent  , canActivate: [AuthGuard]},
+    { path: 'adminlogin', component: AdminLoginComponent },
  
 
     // otherwise redirect to home

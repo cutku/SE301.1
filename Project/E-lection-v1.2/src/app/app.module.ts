@@ -23,6 +23,7 @@ import { TableComponent } from './table/table.component';
 import { Charts } from './charts/charts.component';
 import { ChartistJs } from './charts/components/chartistJs/index';
 import { Testt} from './testt/testt.component';
+import{ AdminLoginComponent} from './adminlogin/adminlogin.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { Testt} from './testt/testt.component';
         LoginComponent,
         UsersComponent,
         RegisterComponent,
+        AdminLoginComponent
         
     ],
     providers: [
