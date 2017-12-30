@@ -21,12 +21,13 @@ export class AdminLoginComponent implements OnInit {
     
     
     ngOnInit() {
+        this.authenticationService.logout();
         this.returnUrl1 = this.route.snapshot.queryParams[''] || '/';
     }
 
     login() {
         this.loading = true;
-        this.authenticationService.loginadmin(this.model.adminusername, this.model.adminpassword)
+        this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl1]);
