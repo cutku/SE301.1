@@ -1,80 +1,69 @@
 <div class="row">
-    <div class="col-md-6">
-
-        <!-- START LINE CHART -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Line Chart</h3>                                
-            </div>
-            <div class="panel-body">
-                <div id="morris-line-example" style="height: 300px;"></div>
-            </div>
-        </div>
-        <!-- END LINE CHART -->
-
+    <div class="col-lg-12">
+        <h1 class="page-header">Charts</h1>
     </div>
-    <div class="col-md-6">
-
-        <!-- START Area CHART -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Area Chart</h3>                                
-            </div>
-            <div class="panel-body">
-                <div id="morris-area-example" style="height: 300px;"></div>
-            </div>
-        </div>
-        <!-- END Area CHART -->                        
-
-    </div>
+    <!-- /.col-lg-12 -->
 </div>
-
 <div class="row">
-    <div class="col-md-6">
-
-        <!-- START BAR CHART -->
+    <div class="col-lg-6 col-sm-12" id="line-chart" ng-controller="ChartCtrl">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Bar Chart</h3>                                
-            </div>
+            <div class="panel-heading">Line Chart</div>
             <div class="panel-body">
-                <div id="morris-bar-example" style="height: 300px;"></div>
+                <canvas id="line" class="chart chart-line chart-xl" data="line.data" labels="line.labels" legend="true"
+                click="line.onClick" series="line.series"></canvas>
             </div>
         </div>
-        <!-- END BAR CHART -->
-
     </div>
-    <div class="col-md-6">
-
-        <!-- START DONUT CHART -->
+    <div class="col-lg-6 col-sm-12" id="bar-chart" ng-controller="ChartCtrl">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Donut Chart</h3>                                
-            </div>
+            <div class="panel-heading">Bar Chart</div>
             <div class="panel-body">
-                <div id="morris-donut-example" style="height: 300px;"></div>
+                <canvas id="bar" class="chart chart-bar" data="bar.data" labels="bar.labels" series="bar.series"
+                options="bar.options"></canvas>
             </div>
         </div>
-        <!-- END DONUT CHART -->                        
-
     </div>
 </div>
-
-<div class="header">
-        <h2>PIE CHART</h2>
-        <ul class="header-dropdown m-r--5">
-            <li class="dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">more_vert</i>
-                </a>
-                <ul class="dropdown-menu pull-right">
-                    <li><a href="javascript:void(0);">Action</a></li>
-                    <li><a href="javascript:void(0);">Another action</a></li>
-                    <li><a href="javascript:void(0);">Something else here</a></li>
-                </ul>
-            </li>
-        </ul>
+<div class="row">
+    <div class="col-lg-6 col-sm-12" id="doughnut-chart" ng-controller="ChartCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Doughnut Chart</div>
+            <div class="panel-body">
+            <canvas id="doughnut" class="chart chart-doughnut chart-xs" data="donut.data" labels="donut.labels" legend="false"></canvas>
+            </div>
+        </div>
     </div>
-    <div class="body">
-        <canvas id="pie_chart" height="150"></canvas>
+    <div class="col-lg-6 col-sm-12" id="radar-chart" ng-controller="ChartCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Radar Chart</div>
+            <div class="panel-body">
+                <canvas id="area" class="chart chart-radar" data="radar.data" labels="radar.labels" click="onClick"></canvas>
+            </div>
+        </div>
     </div>
+    <div class="col-lg-6 col-sm-12" id="pie-chart" ng-controller="ChartCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Pie Chart</div>
+            <div class="panel-body">
+                <canvas id="pie" class="chart chart-pie chart-xs" data="pie.data" labels="pie.labels"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-sm-12" id="polar area-chart" ng-controller="ChartCtrl">
+      <div class="panel panel-default">
+        <div class="panel-heading">Polar Area Chart</div>
+        <div class="panel-body">
+          <canvas id="polar" class="chart chart-polar-area" data="polar.data" labels="polar.labels"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12" id="base-chart" ng-controller="ChartCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Dynamic Chart</div>
+            <div class="panel-body">
+            <canvas id="base" class="chart chart-base" chart-type="dynamic.type" data="dynamic.data" labels="dynamic.labels" legend="true"></canvas>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary pull-right" ng-click="dynamic.toggle()">Toggle</button>
+    </div>
+</div>
