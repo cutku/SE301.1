@@ -1,3 +1,5 @@
+import { SSL_OP_TLS_BLOCK_PADDING_BUG } from 'constants';
+
 var express = require('express');
 var app = express();
 var router = express.Router();
@@ -5,7 +7,11 @@ var router = express.Router();
 var conn = require('./connection');
 
 var result;
-
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 //Burası örnek get sorgusu
 app.get('/users', function(req, res, next) {
@@ -21,7 +27,6 @@ app.get('/users', function(req, res, next) {
                 });
         });     
 });
-
 
 app.get('/elections', function(req, res, next) {
 
@@ -55,6 +60,7 @@ app.get('/candidates', function(req, res, next) {
             });
     });     
 });
+
 app.get('/candidatebyelections', function(req, res, next) {
 
     conn.getConnection(
@@ -102,8 +108,26 @@ app.get('/votesbyelection', function(req, res, next) {
     });     
 });
 
+app.post('/user', function (req, res) 
+{
+    conn.getConnection(
+        function (err, client) {
+            var jsondata = req.body;
+            var query='INSERT INTO users (name, surname, username, email, password, type) VALUES ("'+jsondata["name"] +'","'+jsondata["surname"]+'","'+jsondata["username"]+'","'+jsondata["email"]+'","'+jsondata["password"]+'",'+jsondata["type"]+')';
+            client.query(query, function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                    res.json({success:false});
+                }
+                res.json({success:true});
+              
+                client.release();
+            });
+        });   
+})
 
-// Burası backendi ayaga kaldıran kısım
+
+  // Burası backendi ayaga kaldıran kısım
 var port = 9001;
 app.listen(port, function () {
   console.log('app listening on port: '+port)
