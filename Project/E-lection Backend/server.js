@@ -1,21 +1,33 @@
 
 
 var express = require('express');
+var cookieParser = require('cookie-parser')
 var app = express();
 var router = express.Router();
 // var mysql   = require('mysql');
 var conn = require('./connection');
-
+// var auth = require('./auth');
 var result;
 var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
+app.use(cookieParser());
 
+function isAuthenticated(req, res, next) {
+    
+    if (false)
+        return next();
+  
+    // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
+    res.json({code:502});
+  }
+
+  
+ 
 //Burası örnek get sorgusu
-app.get('/users', function(req, res, next) {
-
+app.get('/users', isAuthenticated, function(req, res, next) {
         conn.getConnection(
             function (err, client) {
                 client.query('SELECT * FROM users', function(err, rows) {
@@ -32,7 +44,7 @@ app.get('/elections', function(req, res, next) {
 
     conn.getConnection(
         function (err, client) {
-            client.query('SELECT * FROM election', function(err, rows) {
+            client.query('SELECT election.*,electiontypes.name AS typeName FROM election INNER JOIN electiontypes ON election.typeId= electiontypes.id', function(err, rows) {
                 if(err){
                     console.log('Query Error');
                 }
@@ -51,7 +63,7 @@ app.get('/candidates', function(req, res, next) {
 
     conn.getConnection(
         function (err, client) {
-            client.query('SELECT * FROM candidate', function(err, rows) {
+            client.query('SELECT candidate.*, user.* FROM candidate INNER JOIN users ON candidate.userId= users.id', function(err, rows) {
                 if(err){
                     console.log('Query Error');
                 }
@@ -65,7 +77,7 @@ app.get('/candidatebyelections', function(req, res, next) {
 
     conn.getConnection(
         function (err, client) {
-            client.query('SELECT * FROM candidatebyelection', function(err, rows) {
+            client.query('SELECT * FROM candidatebyelection INNER JOIN election ON election.id= candidatebyelection.electionId INNER JOIN candidate ON candidate.id= candidatebyelection.candidateId', function(err, rows) {
                 if(err){
                     console.log('Query Error');
                 }
@@ -98,7 +110,7 @@ app.get('/votesbyelection', function(req, res, next) {
 
     conn.getConnection(
         function (err, client) {
-            client.query('SELECT * FROM votesbyelection', function(err, rows) {
+            client.query('SELECT * FROM votesbyelection INNER JOIN users ON users.id= votesbyelection.userId INNER JOIN election ON election.id= votesbyelection.electionId', function(err, rows) {
                 if(err){
                     console.log('Query Error');
                 }
@@ -108,8 +120,7 @@ app.get('/votesbyelection', function(req, res, next) {
     });     
 });
 
-app.post('/user', function (req, res) 
-{
+app.post('/user', function (req, res) {
     conn.getConnection(
         function (err, client) {
             var jsondata = req.body;
@@ -125,8 +136,8 @@ app.post('/user', function (req, res)
             });
         });   
 })
-app.post('/election', function (req, res) 
-{
+
+app.post('/election', function (req, res) {
     conn.getConnection(
         function (err, client) {
             var jsondata = req.body;
@@ -142,8 +153,8 @@ app.post('/election', function (req, res)
             });
         });   
 })
-app.post('/candidate', function (req, res) 
-{
+
+app.post('/candidate', function (req, res) {
     conn.getConnection(
         function (err, client) {
             var jsondata = req.body;
@@ -160,6 +171,83 @@ app.post('/candidate', function (req, res)
         });   
 })
 
+app.post('/candidatebyelection', function (req, res) {
+    conn.getConnection(
+        function (err, client) {
+            var jsondata = req.body;
+            var query='INSERT INTO candidatebyelection (candidateId, electionId, totalVotes) VALUES ("'+jsondata["candidateId"] +'","'+jsondata["electionId"]+'",'+jsondata["totalVotes"]+')';
+            client.query(query, function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                    res.json({success:false});
+                }
+                res.json({success:true});
+              
+                client.release();
+            });
+        });   
+})
+
+app.post('/electiontypes', function (req, res) {
+    conn.getConnection(
+        function (err, client) {
+            var jsondata = req.body;
+            var query='INSERT INTO electiontypes (name) VALUES ("'+jsondata["name"] +'")';
+            client.query(query, function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                    res.json({success:false});
+                }
+                res.json({success:true});
+              
+                client.release();
+            });
+        });   
+})
+
+app.post('/votesbyelection', function (req, res) {
+    conn.getConnection(
+        function (err, client) {
+            var jsondata = req.body;
+            var query='INSERT INTO votesbyelection (userId, electionId, isUsed, date) VALUES ('+jsondata["userId"] +','+jsondata["electionId"]+','+jsondata["isUsed"]+',"'+jsondata["date"] +'")';
+            client.query(query, function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                    res.json({success:false});
+                }
+                res.json({success:true});
+              
+                client.release();
+            });
+        });   
+})
+
+
+app.post('/login', function (req, res) {
+    conn.getConnection(
+        function (err, client) {
+    var jsondata = req.body;
+    
+    var query='SELECT * from users WHERE username = "'+jsondata.username+'" AND password = "'+jsondata.password+'"'
+            client.query(query, function(err, rows) {
+                // console.log(rows);
+                if(err){
+                    console.log('Query Error');
+                    res.json({success:false});
+                }
+                // res.json({success:true});
+               
+                if (rows.length===1){
+                    // console.log("auth");
+                    res.cookie('auth',"deneme", { maxAge: 900000, httpOnly: true }); 
+                    res.json({success:true});
+                    res.end(""); 
+                }
+                res.json({success:false});
+                client.release();
+            });
+        });
+})
 
   // Burası backendi ayaga kaldıran kısım
 var port = 9001;
