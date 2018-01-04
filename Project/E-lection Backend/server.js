@@ -130,7 +130,7 @@ app.post('/election', function (req, res)
     conn.getConnection(
         function (err, client) {
             var jsondata = req.body;
-            var query='INSERT INTO election (name, typeId, status, startDate, endDate) VALUES ("'+jsondata["name"] +'","'+jsondata["typeId"]+'","'+jsondata["status"]+'","'+jsondata["startDate"]+'","'+jsondata["endDate"]+')';
+            var query='INSERT INTO election (name, typeId, status, startDate, endDate) VALUES ("'+jsondata["name"] +'","'+jsondata["typeId"]+'","'+jsondata["status"]+'","'+jsondata["startDate"]+'","'+jsondata["endDate"]+'")';
             client.query(query, function(err, rows) {
                 if(err){
                     console.log('Query Error');
@@ -147,7 +147,7 @@ app.post('/candidate', function (req, res)
     conn.getConnection(
         function (err, client) {
             var jsondata = req.body;
-            var query='INSERT INTO candidate (name, codename, userId) VALUES ("'+jsondata["name"] +'","'+jsondata["codename"]+'","'+jsondata["userId"]+')';
+            var query='INSERT INTO candidate (name, codename, userId) VALUES ("'+jsondata["name"] +'","'+jsondata["codename"]+'",'+jsondata["userId"]+')';
             client.query(query, function(err, rows) {
                 if(err){
                     console.log('Query Error');
