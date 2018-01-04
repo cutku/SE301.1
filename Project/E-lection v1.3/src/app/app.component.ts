@@ -13,6 +13,6 @@ declare var $:any;
 
 export class AppComponent {
     title = 'E-Lection'
-    title2 = 'BETA TEST'
+    title2 = 'BETA TEST but it must be FULL TEST'
 
  }
