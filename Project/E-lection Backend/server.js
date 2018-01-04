@@ -55,11 +55,44 @@ app.get('/candidates', function(req, res, next) {
             });
     });     
 });
-app.get('/candidatebyelection', function(req, res, next) {
+app.get('/candidatebyelections', function(req, res, next) {
 
     conn.getConnection(
         function (err, client) {
             client.query('SELECT * FROM candidatebyelection', function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                }
+                try{
+                    res.json(rows);
+                    client.release();     
+                }
+                catch(e){
+                    console.log(e);
+                }
+            });
+    });     
+});
+
+app.get('/electiontypes', function(req, res, next) {
+
+    conn.getConnection(
+        function (err, client) {
+            client.query('SELECT * FROM electiontypes', function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                }
+                res.json(rows);
+                client.release();
+            });
+    });     
+});
+
+app.get('/votesbyelection', function(req, res, next) {
+
+    conn.getConnection(
+        function (err, client) {
+            client.query('SELECT * FROM votesbyelection', function(err, rows) {
                 if(err){
                     console.log('Query Error');
                 }
