@@ -1,4 +1,4 @@
-import { SSL_OP_TLS_BLOCK_PADDING_BUG } from 'constants';
+
 
 var express = require('express');
 var app = express();
@@ -114,6 +114,40 @@ app.post('/user', function (req, res)
         function (err, client) {
             var jsondata = req.body;
             var query='INSERT INTO users (name, surname, username, email, password, type) VALUES ("'+jsondata["name"] +'","'+jsondata["surname"]+'","'+jsondata["username"]+'","'+jsondata["email"]+'","'+jsondata["password"]+'",'+jsondata["type"]+')';
+            client.query(query, function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                    res.json({success:false});
+                }
+                res.json({success:true});
+              
+                client.release();
+            });
+        });   
+})
+app.post('/election', function (req, res) 
+{
+    conn.getConnection(
+        function (err, client) {
+            var jsondata = req.body;
+            var query='INSERT INTO election (name, typeId, status, startDate, endDate) VALUES ("'+jsondata["name"] +'","'+jsondata["typeId"]+'","'+jsondata["status"]+'","'+jsondata["startDate"]+'","'+jsondata["endDate"]+')';
+            client.query(query, function(err, rows) {
+                if(err){
+                    console.log('Query Error');
+                    res.json({success:false});
+                }
+                res.json({success:true});
+              
+                client.release();
+            });
+        });   
+})
+app.post('/candidate', function (req, res) 
+{
+    conn.getConnection(
+        function (err, client) {
+            var jsondata = req.body;
+            var query='INSERT INTO candidate (name, codename, userId) VALUES ("'+jsondata["name"] +'","'+jsondata["codename"]+'","'+jsondata["userId"]+')';
             client.query(query, function(err, rows) {
                 if(err){
                     console.log('Query Error');
