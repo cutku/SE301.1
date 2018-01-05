@@ -1,4 +1,4 @@
-import { get } from 'https';
+// import { get } from 'https';
 
 
 
@@ -15,21 +15,44 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+  });
 app.use(cookieParser());
 
 function isAuthenticated(req, res, next) {
-    
-    if (false)
+    var token=req.cookies.auth;
+    console.log(token);
+    if (isTokenValid(token))
+        token=generateToken(token.user);
+        res.cookie('auth',token, { maxAge: 900000, httpOnly: true }); 
         return next();
-  
-    // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
-    res.json({code:502});
-  }
+    res.status(402);
+  } 
 
-  
+
+// function generateToken(user) {
+//     var token={}
+//     token.user={};
+//     token.user=user;
+//     return token;
+//   }
+
+
+// function isTokenValid(token) {
+//     if (token)
+//     {
+//         return true;
+//     }
+//     return false;
+// }
  
 //Burası örnek get sorgusu
-app.get('/users', isAuthenticated, function(req, res, next) {
+app.get('/users', function(req, res, next) {
+    console.log("deneme");
         conn.getConnection(
             function (err, client) {
                 client.query('SELECT * FROM users', function(err, rows) {
@@ -137,7 +160,7 @@ app.post('/user', function (req, res) {
                 client.release();
             });
         });   
-})
+});
 
 app.post('/election', function (req, res) {
     conn.getConnection(
@@ -154,7 +177,7 @@ app.post('/election', function (req, res) {
                 client.release();
             });
         });   
-})
+});
 
 app.post('/candidate', function (req, res) {
     conn.getConnection(
@@ -171,13 +194,13 @@ app.post('/candidate', function (req, res) {
                 client.release();
             });
         });   
-})
+});
 
 app.post('/candidatebyelection', function (req, res) {
     conn.getConnection(
         function (err, client) {
             var jsondata = req.body;
-            var query='INSERT INTO candidatebyelection (candidateId, electionId, totalVotes) VALUES ("'+jsondata["candidateId"] +'","'+jsondata["electionId"]+'",'+jsondata["totalVotes"]+')';
+            var query='INSERT INTO candidatebyelection (candidateId, electionId, totalVotes) VALUES ("'+jsondata["candidateId"]+'","'+jsondata["electionId"]+'",'+jsondata["totalVotes"]+')';
             client.query(query, function(err, rows) {
                 if(err){
                     console.log('Query Error');
@@ -188,7 +211,7 @@ app.post('/candidatebyelection', function (req, res) {
                 client.release();
             });
         });   
-})
+});
 
 app.post('/electiontypes', function (req, res) {
     conn.getConnection(
@@ -205,7 +228,7 @@ app.post('/electiontypes', function (req, res) {
                 client.release();
             });
         });   
-})
+});
 
 app.post('/votesbyelection', function (req, res) {
     conn.getConnection(
@@ -222,12 +245,13 @@ app.post('/votesbyelection', function (req, res) {
                 client.release();
             });
         });   
-})
-
+});
 
 app.post('/login', function (req, res) {
+    var length=0;
+    var user;
     conn.getConnection(
-        function (err, client) {
+        function (err, client,length,user) {
     var jsondata = req.body;
     
     var query='SELECT * from users WHERE username = "'+jsondata.username+'" AND password = "'+jsondata.password+'"'
@@ -237,18 +261,26 @@ app.post('/login', function (req, res) {
                     console.log('Query Error');
                     res.json({success:false});
                 }
+                user=rows[0];
                 // res.json({success:true});
-               
-                if (rows.length===1){
-                    // console.log("auth");
-                    res.cookie('auth',"deneme", { maxAge: 900000, httpOnly: true }); 
-                    res.json({success:true});
-                    res.end(""); 
-                }
-                res.json({success:false});
-                client.release();
+               length=rows.length;
+            //    console.log(length);
+               client.release();
             });
         });
+        if (length===1){
+            var token=generateToken(user);
+            res.cookie('auth',token, { maxAge: 900000, httpOnly: true }); 
+            res.json({success:true});
+            // res.end(""); 
+        }
+        else{
+            res.json({success:false});
+        }
+})
+
+app.get('/logout', function (req, res) {
+   clearCookie('auth');
 })
 
   // Burası backendi ayaga kaldıran kısım

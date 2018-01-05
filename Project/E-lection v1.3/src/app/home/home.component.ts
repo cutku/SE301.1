@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { User } from '../_models/index';
-import { UserService } from '../_services/index';
+import { User, CandidateElections} from '../_models/index';
+import { UserService, CandidateService } from '../_services/index';
 
 @Component({
     moduleId: module.id.toString(),
@@ -12,20 +12,28 @@ export class HomeComponent implements OnInit {
     model: any = {};
     currentUser: User;
     users: User[] = [];
+    candidateelections: CandidateElections[] = [];
+  
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private candidateService: CandidateService ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
         this.loadAllUsers();
+        this.loadAllCandidateElections();
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-    }
+ 
+     deleteUser(id: number) {
+         this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
+     }
 
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => { this.users = users; });
+    }
+
+    private loadAllCandidateElections() {
+        this.candidateService.getAll().subscribe(candidateelections => { this.candidateelections = candidateelections; });
     }
 }

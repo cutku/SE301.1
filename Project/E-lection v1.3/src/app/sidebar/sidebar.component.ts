@@ -19,9 +19,9 @@ export const ROUTES: RouteInfo[] = [
 
     { path: 'home', title: 'Home',  icon: 'ti-home', class: '' }, // = <li class="active"><a href="#/home">Home</a></li>
     { path: 'table', title: 'Election',  icon: 'ti-panel', class: '' },
-    { path: 'charts', title: 'Chart',  icon: 'ti-panel', class: '' },
+  
     { path: 'users', title: 'User Profile',  icon:'ti-user', class: '' },
-    { path: 'testt', title: 'Test page',  icon:'ti-map', class: '' },
+    { path: 'testt', title: 'Voting',  icon:'ti-map', class: '' },
    // { path: 'table', title: 'Table List',  icon:'ti-view-list-alt', class: '' },
    // { path: 'typography', title: 'Typography',  icon:'ti-text', class: '' },
    // { path: 'icons', title: 'Icons',  icon:'ti-pencil-alt2', class: '' },
